@@ -1,7 +1,7 @@
 # vagrant
 
 
-# First we must install the vagrant to our local machine
+# First we installed the vagrant to our local machine
 # Install Vagrant
 https://www.vagrantup.com/docs/installation
 
