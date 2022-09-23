@@ -1,7 +1,4 @@
-# vagrant
-
-
-# First we installed the vagrant to our local machine
+# First we must install the vagrant to our local machine
 # Install Vagrant
 https://www.vagrantup.com/docs/installation
 
@@ -22,73 +19,92 @@ And in vagrant file I create two virtual machines, one of them is control node a
 ```
 We give the Vagrantfile as a name to the file.
 
-Vagrantfile
-
-Vagrant.configure("2") do |config|
-    servers=[
-        {
-          :hostname => "control",
-          :box => "bento/ubuntu-18.04",
-          :ip => "192.168.211.51",
-          :ssh_port => '2200'
-        },
-        {
-          :hostname => "node1",
-          :box => "bento/ubuntu-18.04",
-          :ip => "192.168.211.52",
-          :ssh_port => '2201'
-        },        
-      ]
-
-    servers.each do |machine|
-        config.vm.define machine[:hostname] do |node|
-       # config.vm.hostname = "Docker"
-            node.vm.box = "bento/ubuntu-18.04"
-            node.vm.box = machine[:box]
-            node.vm.hostname = machine[:hostname]
-            node.vm.network :private_network, ip: machine[:ip]
-            node.vm.network "forwarded_port", guest: 22, host: machine[:ssh_port], id: "ssh"  
-            node.vm.provider :virtualbox do |vb|
-                vb.customize ["modifyvm", :id, "--memory", 1024]
-                vb.customize ["modifyvm", :id, "--cpus", 2]
-        config.vm.provision "shell", path: "./install.sh"                
-            end
-        end
-    end
-end
-
 ```
 
 # And after writing this file, we open the folder with code . 
 
 And than 
 vagrant up
- # In the beginning there were some problems, I took some error and I add the path of PowerShell to the PATH environment variable. After that it works
+ # In the beginning there were some problems, I took some error and I add the path of PowerShell to the PATH environment variable. After that it works. 
 ```
 
 PATH="${PATH}:/c/Windows/System32/WindowsPowerShell/v1.0"
 export PATH="$PATH:/mnt/c/Windows/System32/WindowsPowerShell/v1.0"
 ```
 
-### vagrant ssh control and vagrant ssh node1
+### vagrant ssh control
 
 I connect to the control node with ssh connection with "vagrant ssh control" command
 
-And check the docker is installed. 
+And I checked the docker is installed. 
 docker version
 " Version:           20.10.18"
 
 ```
 
 
+```
 
-### Docker,  Python-flask app control
+# Make hosts SSH accessible
+```
+ssh-keygen
+ssh-copy-id node1 && ssh-copy-id node2 && ssh-copy-id node3
 
-### Test Docker
-Log into node1 and test to make sure docker is working.
+
+
+# sudo apt update
+
+# Install Ansible on control station
+```
+sudo apt-get install ansible -y
+```
+
 
 ```
-docker run hello-world
+
+
+### Test ansible
 ```
+ansible nodes  -m command -a hostname
 ```
+It works
+node2 | SUCCESS | rc=0 >>
+control
+
+node1 | SUCCESS | rc=0 >>
+control
+
+node3 | SUCCESS | rc=0 >>
+control
+
+After taking ssh-connect plroblems, first;
+I make port-forwarding on VM 22 to 22
+
+and on the other hand when I try to connect to for ex. node1 with ssh it wants password but it doesnot accept what I write,
+After that I add to VAgrantfile:
+config.ssh.username = 'root'
+config.ssh.password = 'vagrant'
+config.ssh.insert_key = 'true'
+
+and then, I 
+use vagrant provision command to update my vagrant.
+
+and after that I could reach to the node1 from control with ssh
+
+
+
+### Run the playbook 
+```
+ansible-playbook playbook1.yml
+`
+With this playbook;
+we install docker, docker-compose to our vm, and aftere that in the same playbook we copy our files to the host and we use compose-up command and after that
+it triggers the actions and it run the Docker file and it runs the bookstore.py and in this py file there are some http methods .
+
+
+To showcase  REST functions, use `curl` command for each HTTP methods namely, `GET`, `POST`, `PUT`, `DELETE`.
+ 
+ And the last steps:
+ I ll push my task to the github project
+ 
 
