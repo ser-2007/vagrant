@@ -1,0 +1,10 @@
+---
+- hosts: all
+  name: Run docker-compose up
+  #  become: false
+    command: "{{ item }}"
+    with_items:
+      #- "docker login -u {{ User }} -p {{ Password }} gitlab.nioyatech.com:5050"
+      - cd /home/vagrant
+      - docker network create vagrant-network
+      - docker-compose -f /home/vagrant/data/docker-compose.yml up -d
