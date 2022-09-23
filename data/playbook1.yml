@@ -1,0 +1,37 @@
+
+- hosts: nodes
+  become: yes
+  tasks:
+  - name: ensure docker is installed
+    apt:
+      name: docker.io
+      state: latest
+      
+  - name: ensure docker is installed
+    apt:
+      name: docker-compose
+      state: latest
+
+  - name: Added user to docker group
+    user:
+      name: vagrant
+      groups: docker
+
+  - name: Run docker-compose up
+     # become: false
+      # command: "{{ item }}"
+    shell: 
+      cmd: "docker-compose -f docker-compose.yml up -d"
+
+      #docker dosyalari kopyalamak
+      #dockercompose py play de dockerfile build edecek
+      #docker compose up yapacaksin. imaj isminin docker composdaki imaj ismiyle ayni olacak
+      #80 portuu acik
+      #80:80 prt forwarding
+  # - name: copying files with playbook
+  #     become: true
+  #     copy:
+  #       src : /vagrant/docker
+  #       dest: ./vagrant
+
+ #     dockercompose up cd application | docker-compose up
