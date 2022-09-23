@@ -103,8 +103,24 @@ it triggers the actions and it run the Docker file and it runs the bookstore.py 
 
 
 To showcase  REST functions, use `curl` command for each HTTP methods namely, `GET`, `POST`, `PUT`, `DELETE`.
+
+Some of them I used : 
+curl 127.0.0.1/books
+{"books":[{"author":"Delia Owens","book_id":1,"is_sold":true,"title":"Where the Crawdads Sing"},{"author":"Brit Bennett","book_id":2,"is_sold":false,"title":"The Vanishing Half: A Novel"},{"author":"James Patterson, Chris Tebbetts","book_id":3,"is_sold":false,"title":"1st Case"}]} 
+
+ curl -H "Content-Type: application/json" -X PUT -d '{"author":"Franz Kafka","title":"Dava"}' 127.0.0.1/books/3
+
+ and  " {"updated book":{"author":"Franz Kafka","book_id":3,"is_sold":false,"title":"Dava"}}"
+
+curl -H "Content-Type: application/json" -X POST -d '{"author":"Paulo Coelho","title":"The Alchemist"}' 127.0.0.1/books
+
+{"newly added book":{"author":"Paulo Coelho","book_id":4,"is_sold":false,"title":"The Alchemist"}}
  
  And the last steps:
  I ll push my task to the github project
- 
+
+ I create new branches
+ I checkout to the newbranch and I made some works in differenr branchs
+ at the end of this task I pull-request and merge branches to the main branch
+
 
