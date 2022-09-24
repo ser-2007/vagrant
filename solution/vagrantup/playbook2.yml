@@ -1,0 +1,9 @@
+---
+- hosts: nodes
+  become: yes
+  tasks:
+  - name: Run docker-compose up
+     # become: false
+      # command: "{{ item }}"
+    shell: 
+      cmd: "docker-compose -f docker-compose.yml up -d"
