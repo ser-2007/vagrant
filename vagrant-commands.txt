@@ -1,0 +1,9 @@
+1. vagrant init [name [url]] — initializes the current directory to be
+a Vagrant environment by creating an initial vagrant file.
+Example: vagrant init hashicorp/precise32
+2. vagrant up — command creates and configures guest machines
+according to vagrant file.
+3. vagrant status — command tells the state of the machine.
+4. vagrant ssh — SSH into a running Vagrant machine.
+5- vagrant halt — shutdown the VM 
+6. vagrant destroy — delete the VM
