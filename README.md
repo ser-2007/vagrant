@@ -21,6 +21,7 @@ We give the Vagrantfile as a name to the file.
 
 ```
 
+
 # And after writing this file, we open the folder with code . 
 
 And than 
