@@ -6,5 +6,4 @@
      # become: false
       # command: "{{ item }}"
     shell: 
-      cmd: "docker-compose -f /home/vagrant/data/docker-compose.yml up -d" #with shell command we use docker-compose up command"
-      
+      cmd: "docker-compose -f /home/vagrant/data/docker-compose.yml up -d" #with shell command we use docker-compose up command
